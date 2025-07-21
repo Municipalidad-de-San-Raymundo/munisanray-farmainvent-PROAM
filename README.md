@@ -80,6 +80,9 @@ graph TD
 
 ### Estructura de Directorios
 
+> 📖 Consulta la referencia completa de archivos en [`docs/estructura_archivos.md`](docs/estructura_archivos.md)
+
+
 ```
 sistema-inventario-medicamentos/
 ├── src/

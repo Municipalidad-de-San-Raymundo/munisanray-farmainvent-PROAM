@@ -143,6 +143,60 @@ Los archivos compilados se guardarán en la carpeta `dist/`.
 6. **Reportes:** Genere reportes en formato Excel
 7. **Vencimientos:** Visualice medicamentos próximos a vencer
 
+## ➕ Añadir una Nueva Vista
+
+Sigue estos pasos para agregar una nueva funcionalidad completa (vista + lógica):
+
+1. **Crear la Vista HTML**
+   - Copia un archivo de `src/frontend/views/` como plantilla o crea uno nuevo, p. ej. `mi_feature.html`.
+   - Estructura básica Bulma: `<div class="box"> … </div>`.
+   - Agrega _ids_ y clases a los elementos que necesites manipular desde JavaScript.
+
+2. **Actualizar el Menú** (`src/frontend/menu.html`)
+   - Añade un enlace en la lista `<a data-view="mi_feature.html">Mi Feature</a>`.
+   - El `renderer.js` cargará la vista automáticamente al hacer clic.
+
+3. **Añadir Lógica en el Renderer**
+   - Crea (o amplía) un archivo JS dedicado en `src/frontend/js/` (si prefieres mantener separados) o agrega funciones en `renderer.js` dentro del bloque de rutas:
+     ```js
+     case 'mi_feature.html':
+       cargarMiFeature();
+       break;
+     ```
+   - Implementa `cargarMiFeature()` para inicializar eventos y llamar a IPC.
+
+4. **Crear un Service en Backend**
+   - En `src/backend/services/` crea `miFeatureService.js` que exporte las funciones necesarias (CRUD o consultas).
+
+5. **Registrar Handlers IPC**
+   - Crea `src/backend/ipcHandlers/miFeatureHandlers.js`:
+     ```js
+     function registerHandlers(ipcMain, db) {
+       ipcMain.handle('miFeature:list', async () => {
+         return miFeatureService.list(db);
+       });
+     }
+     module.exports = { registerHandlers };
+     ```
+   - Importa y registra en `main.js`:
+     ```js
+     const { registerHandlers: registerMiFeatureHandlers } = require('./src/backend/ipcHandlers/miFeatureHandlers');
+     // dentro de app.whenReady()
+     registerMiFeatureHandlers(ipcMain, db);
+     ```
+
+6. **Conectar con la Base de Datos (opcional)**
+   - Si necesitas tabla nueva, añade `CREATE TABLE IF NOT EXISTS` en `database.js`.
+   - Usa consultas en tu `miFeatureService.js` para leer/escribir datos.
+
+7. **Actualizar Documentación**
+   - Añade tu vista en `docs/estructura_archivos.md`.
+   - Si creas tablas nuevas, documenta el esquema.
+
+> Consejo: reutiliza componentes Bulma y sigue la convención de nomenclatura para mantener coherencia.
+
+---
+
 ## 📊 Base de Datos
 
 La aplicación utiliza SQLite3 para el almacenamiento local de datos. La base de datos se crea automáticamente en:

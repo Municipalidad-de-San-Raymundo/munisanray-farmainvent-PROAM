@@ -167,7 +167,8 @@ La aplicación utiliza la fuente 'Inter' para una mejor legibilidad.
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia ISC.
+Este proyecto está bajo la licencia propietaria (revisar repositorio oficial).
+
 
 ## 🤝 Contribución
 

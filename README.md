@@ -1,0 +1,167 @@
+# Sistema de Inventario de Medicamentos
+
+Aplicación de escritorio desarrollada con Electron.js para la gestión de inventario de medicamentos. Permite el control de existencias, seguimiento de vencimientos, registro de entradas y salidas, y generación de reportes.
+
+## 📋 Características
+
+- Gestión completa de medicamentos (CRUD)
+- Control de lotes y fechas de vencimiento
+- Alertas de stock mínimo y medicamentos próximos a vencer
+- Registro de entradas y salidas de inventario
+- Generación de reportes en Excel
+- Interfaz intuitiva y fácil de usar
+- Base de datos SQLite local para almacenamiento seguro de datos
+
+## 🚀 Requisitos del Sistema
+
+- Node.js 14.x o superior
+- npm 6.x o superior
+- Windows 7 o superior (compatible con otros sistemas operativos con configuraciones adicionales)
+
+## 🛠 Instalación
+
+1. Clonar el repositorio:
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd sistema-inventario-medicamentos
+   ```
+
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Iniciar la aplicación en modo desarrollo:
+   ```bash
+   npm start
+   ```
+
+## 🏗 Estructura del Proyecto
+
+### Diagrama de Arquitectura
+
+```mermaid
+graph TD
+    subgraph "Electron App"
+        A[Main Process] -->|Crea| B[BrowserWindow]
+        A -->|Gestiona| C[IPC Communication]
+        A -->|Inicializa| D[Database]
+        
+        subgraph "Renderer Process"
+            B -->|Carga| E[index.html]
+            E -->|Incluye| F[renderer.js]
+            F -->|Carga dinámica| G[Vistas HTML]
+            G -->|Interactúa con| H[Servicios Backend]
+        end
+        
+        subgraph "Backend"
+            H -->|Consulta/Actualiza| D
+            D[(SQLite3 Database)]
+        end
+    end
+
+    style A fill:#0366d6,color:white
+    style B fill:#28a745,color:white
+    style C fill:#6f42c1,color:white
+    style D fill:#e36209,color:white
+    style E fill:#24292e,color:white
+    style F fill:#005cc5,color:white
+    style G fill:#6f42c1,color:white
+    style H fill:#28a745,color:white
+```
+
+### Estructura de Directorios
+
+```
+sistema-inventario-medicamentos/
+├── src/
+│   ├── frontend/             # Código del lado del cliente
+│   │   ├── css/              # Hojas de estilo
+│   │   ├── fonts/            # Fuentes personalizadas
+│   │   ├── views/            # Vistas HTML
+│   │   ├── index.html        # Página principal
+│   │   ├── menu.html         # Menú de navegación
+│   │   └── renderer.js       # Lógica del renderer
+│   │
+│   └── backend/              # Código del servidor
+│       ├── services/         # Servicios de negocio
+│       └── database.js       # Configuración de la base de datos
+│
+├── main.js                   # Punto de entrada de Electron
+└── package.json              # Configuración del proyecto
+```
+
+## 🧩 Tecnologías Utilizadas
+
+- **Frontend:**
+  - HTML5, CSS3, JavaScript (ES6+)
+  - Bulma CSS Framework
+  - Font Awesome para iconos
+  - Inter (fuente personalizada)
+
+- **Backend:**
+  - Node.js
+  - Electron.js
+  - SQLite3 (base de datos)
+  - ExcelJS (para generación de reportes)
+
+## 🚦 Scripts Disponibles
+
+- `npm start` - Inicia la aplicación en modo desarrollo
+- `npm run build:win` - Crea un instalador para Windows
+- `npm run build:win-safe` - Versión segura del build para Windows
+
+## 📦 Construcción
+
+Para crear un ejecutable de la aplicación:
+
+```bash
+# Para Windows
+npm run build:win
+```
+
+Los archivos compilados se guardarán en la carpeta `dist/`.
+
+## 📝 Uso
+
+1. **Panel Principal:** Vista general con estadísticas del inventario
+2. **Gestión de Medicamentos:** Administre los medicamentos en inventario
+3. **Entradas:** Registre nuevas entradas de medicamentos
+4. **Salidas:** Registre salidas de medicamentos
+5. **Historial:** Consulte el historial de movimientos
+6. **Reportes:** Genere reportes en formato Excel
+7. **Vencimientos:** Visualice medicamentos próximos a vencer
+
+## 📊 Base de Datos
+
+La aplicación utiliza SQLite3 para el almacenamiento local de datos. La base de datos se crea automáticamente en:
+- Windows: `%APPDATA%/[app-name]/inventario.sqlite`
+- En desarrollo: `./data_dev/inventario.sqlite`
+
+## 🎨 Personalización
+
+### Colores
+La paleta de colores personalizada incluye:
+- Color primario: `#36D9D9` (cyan claro)
+- Color de éxito: `#035AA6` (azul oscuro)
+
+### Fuente
+La aplicación utiliza la fuente 'Inter' para una mejor legibilidad.
+
+## 🔒 Seguridad
+
+- Content Security Policy (CSP) implementada
+- Validación de entrada en formularios
+- Manejo seguro de rutas de archivos
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia ISC.
+
+## 🤝 Contribución
+
+Las contribuciones son bienvenidas. Por favor, envíe un Pull Request con sus cambios propuestos.
+
+## 📧 Contacto
+
+Para soporte o consultas, por favor contacte al equipo de desarrollo.

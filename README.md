@@ -44,30 +44,38 @@ Aplicación de escritorio desarrollada con Electron.js para la gestión de inven
 graph TD
     subgraph "Electron App"
         A[Main Process] -->|Crea| B[BrowserWindow]
-        A -->|Gestiona| C[IPC Communication]
-        A -->|Inicializa| D[Database]
+        A -->|Carga| P[preload.js]
+        P -->|APIs seguras| B
+        A -->|Gestiona| C[IPC Main]
+        A -->|Inicializa| D[(SQLite3 DB)]
         
         subgraph "Renderer Process"
             B -->|Carga| E[index.html]
             E -->|Incluye| F[renderer.js]
             F -->|Carga dinámica| G[Vistas HTML]
-            G -->|Interactúa con| H[Servicios Backend]
+            F -->|IPC| C
         end
         
-        subgraph "Backend"
-            H -->|Consulta/Actualiza| D
-            D[(SQLite3 Database)]
+        subgraph "Backend (Main)"
+            C -->|Delega| H[IPC Handlers]
+            H -->|Llama| S[Servicios Negocio]
+            S -->|CRUD| D
+            S -->|Genera| X[ExcelJS Reportes]
         end
     end
 
+    %% Estilos
     style A fill:#0366d6,color:white
     style B fill:#28a745,color:white
+    style P fill:#17a2b8,color:white
     style C fill:#6f42c1,color:white
     style D fill:#e36209,color:white
     style E fill:#24292e,color:white
     style F fill:#005cc5,color:white
     style G fill:#6f42c1,color:white
     style H fill:#28a745,color:white
+    style S fill:#28a745,color:white
+    style X fill:#ffd33d,color:black
 ```
 
 ### Estructura de Directorios

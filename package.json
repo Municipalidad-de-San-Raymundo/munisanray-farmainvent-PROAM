@@ -1,0 +1,53 @@
+{
+  "name": "sistema-inventario-medicamentos",
+  "version": "1.0.0",
+  "description": "Sistema de inventario de medicamentos",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:win": "electron-builder --win",
+    "build:win-safe": "electron-builder --win --dir --config.npmRebuild=false"
+  },
+  "keywords": [
+    "inventario",
+    "medicamentos",
+    "electron"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.munisanray.inventario",
+    "productName": "Sistema de inventario de medicamentos", 
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "asar": true,
+    "asarUnpack": ["node_modules/sqlite3/**/*"],
+    "forceCodeSigning": false,
+    "extraMetadata": {
+      "main": "main.js"
+    }
+  },
+  "dependencies": {
+    "exceljs": "^4.3.0",
+    "nedb-promises": "^6.2.3",
+    "sqlite3": "^5.1.7"
+  }
+}

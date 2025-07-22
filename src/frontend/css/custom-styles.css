@@ -1,0 +1,245 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+    font-weight: 100 900; /* Rango de pesos para fuentes variables */
+    font-stretch: normal;
+    font-style: normal;
+}
+
+/* Aplicar la fuente Inter globalmente */
+html,
+body {
+    font-family: 'Inter', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-synthesis: none; /* Evita que el navegador sintetice negritas o itálicas si la fuente no las tiene explícitamente */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    overflow-x: hidden; /* Evita el scroll horizontal por el menú en desktop */
+}
+
+/* Asegurar que los elementos de formulario también usen la fuente */
+.input,
+.textarea,
+.select select,
+.button {
+    font-family: 'Inter', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+/* Ajustes para títulos y otros elementos si es necesario */
+.title,
+.subtitle {
+    font-family: 'Inter', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 600; /* Ejemplo de peso para títulos, ajústalo según necesites */
+}
+
+.label {
+    font-family: 'Inter', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 500; /* Ejemplo de peso para labels */
+}
+
+/*
+ * =========================================
+ * Custom Color Palette
+ * =========================================
+ */
+
+:root {
+  --primary: #36D9D9;
+  --primary-dark: #2bb0b0;
+  --primary-light: #ebfafa;
+  
+  --link: #0597F2;
+  --link-dark: #0478c2;
+  --link-light: #e6f4fe;
+
+  --info: #0378A6;
+  --info-dark: #025a7d;
+  --info-light: #e6f1f7;
+  
+  --success: #035AA6;
+  --success-dark: #024483;
+  --success-light: #e6eef7;
+
+  --warning: #ffdd57; /* Bulma default */
+  --warning-dark: #ffce24;
+  --warning-light: #fffbeb;
+
+  --danger: #f14668; /* Bulma default */
+  --danger-dark: #ee2b55;
+  --danger-light: #feecf0;
+  
+  --body-bg: #F2F2F2;
+  --text-color: #363636;
+  --white: #fff;
+}
+
+/* --- 1. General Overrides --- */
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link);
+}
+a:hover {
+  color: var(--link-dark);
+}
+
+.box {
+  background-color: var(--white);
+}
+
+/* --- 2. Text Color Helpers --- */
+.has-text-primary { color: var(--primary) !important; }
+.has-text-link { color: var(--link) !important; }
+.has-text-info { color: var(--info) !important; }
+.has-text-success { color: var(--success) !important; }
+.has-text-warning { color: var(--warning) !important; }
+.has-text-danger { color: var(--danger) !important; }
+
+/* --- 3. Component Overrides --- */
+
+/* Buttons */
+.button.is-primary { background-color: var(--primary); border-color: transparent; color: var(--text-color); }
+.button.is-primary:hover, .button.is-primary:focus { background-color: var(--primary-dark); color: var(--text-color); }
+.button.is-primary.is-light { background-color: var(--primary-light); color: var(--primary-dark); }
+
+.button.is-link { background-color: var(--link); border-color: transparent; color: var(--white); }
+.button.is-link:hover, .button.is-link:focus { background-color: var(--link-dark); }
+.button.is-link.is-light { background-color: var(--link-light); color: var(--link-dark); }
+
+.button.is-info { background-color: var(--info); border-color: transparent; color: var(--white); }
+.button.is-info:hover, .button.is-info:focus { background-color: var(--info-dark); }
+.button.is-info.is-light { background-color: var(--info-light); color: var(--info-dark); }
+
+.button.is-success { background-color: var(--success); border-color: transparent; color: var(--white); }
+.button.is-success:hover, .button.is-success:focus { background-color: var(--success-dark); color: var(--white); }
+.button.is-success.is-light { background-color: var(--success-light); color: var(--success-dark); }
+
+/* Tags (used in historial.html) */
+.tag.is-success.is-light { background-color: var(--success-light); color: var(--success-dark); }
+.tag.is-warning.is-light { background-color: var(--warning-light); color: var(--warning-dark); }
+.tag.is-danger.is-light { background-color: var(--danger-light); color: var(--danger-dark); }
+
+/* Sidebar Active Item */
+.menu-list a.is-active {
+  background-color: var(--primary);
+  color: var(--text-color);
+}
+
+/* Notifications */
+.notification.is-primary { background-color: var(--primary); color: var(--text-color); }
+.notification.is-primary.is-light { background-color: var(--primary-light); color: var(--primary-dark); }
+
+.notification.is-info { background-color: var(--info); color: var(--white); }
+.notification.is-info.is-light { background-color: var(--info-light); color: var(--info-dark); }
+
+
+/*
+ * =========================================
+ * Layout Styles (Moved from index.html)
+ * =========================================
+ */
+
+.columns.is-fullheight {
+    min-height: 100vh; /* Asegura que las columnas ocupen al menos toda la altura de la ventana */
+    display: flex; /* Necesario para que is-fullheight funcione bien con hijos de columna */
+}
+
+.column.is-main-content {
+    flex: 1; /* Asegura que la columna de contenido principal ocupe el espacio restante */
+    overflow-y: auto; /* Permite scroll solo en la columna de contenido si es necesario */
+    background-color: var(--body-bg); /* Asegura que el fondo cubra toda el área de contenido */
+}
+
+.is-sidebar-menu {
+    background-color: var(--white); /* Fondo blanco para el menú, sobrescribe el de bulma si es necesario */
+    min-height: 100vh; /* Ocupa toda la altura */
+    padding-top: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 10; /* Asegura que el menú esté por encima del overlay */
+}
+
+/* Estilos para el menú responsivo */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 15; /* Por encima del sidebar pero debajo del menú si se abre encima */
+}
+
+.hamburger-button {
+    display: none; /* Oculto en desktop */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 20; /* Encima de todo */
+    background-color: var(--primary); /* Usar color primario */
+    color: var(--text-color); /* Texto oscuro para contraste con primario claro */
+    border-radius: 4px;
+}
+
+.hamburger-button.is-active + .is-sidebar-menu {
+    transform: translateX(0);
+}
+
+.hamburger-button.is-active ~ .sidebar-overlay {
+    display: block;
+}
+
+/* Scroll interno para tablas de gestión */
+.scroll-table-wrapper {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.scroll-table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 2;
+}
+
+@media screen and (max-width: 1023px) { /* tablet and mobile */
+    .is-sidebar-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px; /* Ancho del menú */
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 20; /* Asegurar que el menú esté por encima del overlay */
+            overflow-y: auto; /* Permitir scroll en el menú si es muy largo */
+    }
+    .is-sidebar-menu.is-active {
+        transform: translateX(0);
+    }
+    .hamburger-button {
+        display: block;
+    }
+    /* Ya no se necesita una regla específica para .column.is-main-content aquí,
+       ya que el padding se maneja por el flujo normal o no es necesario ajustar 
+       cuando el menú lateral está fijo o superpuesto en móviles.
+       Si se necesita un ajuste de padding específico para móviles cuando el menú está activo,
+       se podría añadir aquí, por ejemplo:
+       .is-sidebar-menu.is-active + .column.is-main-content {
+           padding-left: ??px; 
+       }
+       Pero por ahora, se elimina la regla vacía.
+    */
+}
+
+@media screen and (min-width: 1024px) { /* desktop */
+    .is-sidebar-menu {
+        position: sticky; /* Mantiene el menú visible al hacer scroll */
+        top: 0; /* Pega el menú en la parte superior */
+        height: 100vh; /* Ocupa toda la altura de la ventana */
+    }
+}

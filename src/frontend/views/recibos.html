@@ -1,0 +1,144 @@
+<div class="box">
+  <h2 class="title is-4">Consulta de Recibos</h2>
+  <p class="subtitle is-6">Consulte, visualice y gestione los recibos de salida generados.</p>
+  
+  <!-- Filtros y búsqueda -->
+  <div class="field is-grouped is-grouped-multiline">
+    <div class="control has-icons-left">
+      <input class="input" type="text" id="buscar-codigo" placeholder="Buscar por código de recibo...">
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+    <div class="control">
+      <div class="select">
+        <select id="filtro-estado">
+          <option value="">Todos los estados</option>
+          <option value="0">Activos</option>
+          <option value="1">Anulados</option>
+        </select>
+      </div>
+    </div>
+    <div class="control">
+      <button id="btn-buscar" class="button is-info is-small">
+        <span class="icon"><i class="fas fa-search"></i></span>
+        <span>Buscar</span>
+      </button>
+    </div>
+    <div class="control">
+      <button id="btn-limpiar" class="button is-light is-small">
+        <span class="icon"><i class="fas fa-eraser"></i></span>
+        <span>Limpiar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-table-wrapper">
+  <table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Fecha</th>
+        <th>DPI Solicitante</th>
+        <th>Total Exacto</th>
+        <th>Total Redondeado</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="recibos-body">
+      <tr><td colspan="7" class="has-text-centered">Cargando...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Paginación -->
+<nav class="pagination is-centered" role="navigation" aria-label="pagination" id="recibos-pagination">
+  <a class="pagination-previous" id="prev-page" disabled>Anterior</a>
+  <a class="pagination-next" id="next-page">Siguiente</a>
+  <ul class="pagination-list" id="pagination-numbers">
+    <!-- Números de página se generan dinámicamente -->
+  </ul>
+</nav>
+
+<!-- Modal para ver detalles del recibo -->
+<div class="modal" id="modal-detalle-recibo">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Detalle del Recibo</p>
+      <button class="delete" aria-label="close" id="cerrar-modal-detalle"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="content">
+        <div class="columns">
+          <div class="column is-half">
+            <p><strong>Código:</strong> <span id="detalle-codigo"></span></p>
+            <p><strong>Fecha:</strong> <span id="detalle-fecha"></span></p>
+            <p><strong>DPI Solicitante:</strong> <span id="detalle-dpi"></span></p>
+          </div>
+          <div class="column is-half">
+            <p><strong>Total Exacto:</strong> <span id="detalle-total-exacto"></span></p>
+            <p><strong>Total Redondeado:</strong> <span id="detalle-total-redondeado"></span></p>
+            <p><strong>Estado:</strong> <span id="detalle-estado"></span></p>
+          </div>
+        </div>
+        
+        <h5 class="title is-5">Medicamentos</h5>
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Medicamento</th>
+              <th>Lote</th>
+              <th>Cantidad</th>
+              <th>Precio Unit.</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="detalle-medicamentos">
+            <!-- Se llena dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-info" id="btn-ver-pdf">
+        <span class="icon"><i class="fas fa-file-pdf"></i></span>
+        <span>Ver PDF</span>
+      </button>
+      <button class="button is-danger" id="btn-anular-recibo" style="display:none;">
+        <span class="icon"><i class="fas fa-ban"></i></span>
+        <span>Anular Recibo</span>
+      </button>
+      <button class="button" id="cerrar-modal-detalle-2">Cerrar</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Modal de confirmación para anular -->
+<div class="modal" id="modal-confirmar-anulacion">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Confirmar Anulación</p>
+      <button class="delete" aria-label="close" id="cerrar-modal-anulacion"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="content">
+        <p>¿Está seguro que desea anular el recibo <strong id="codigo-anular"></strong>?</p>
+        <p class="has-text-warning">
+          <span class="icon"><i class="fas fa-exclamation-triangle"></i></span>
+          Esta acción devolverá todos los medicamentos a sus lotes respectivos y no se puede deshacer.
+        </p>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" id="confirmar-anulacion">
+        <span class="icon"><i class="fas fa-ban"></i></span>
+        <span>Confirmar Anulación</span>
+      </button>
+      <button class="button" id="cancelar-anulacion">Cancelar</button>
+    </footer>
+  </div>
+</div>

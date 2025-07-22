@@ -1,0 +1,70 @@
+<div class="box">
+  <h2 class="title is-4">Editar Medicamento</h2>
+  <p class="subtitle is-6">Modifique los campos necesarios y pulse Guardar.</p>
+
+  <form id="form-editar-medicamento">
+    <div class="field">
+      <label class="label" for="edit-codigo-medicamento">Código</label>
+      <div class="control">
+        <input class="input" id="edit-codigo-medicamento" type="text" placeholder="Código único" required />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="edit-descripcion">Descripción</label>
+      <div class="control">
+        <input class="input" id="edit-descripcion" type="text" placeholder="Nombre o descripción" required />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="edit-principio">Principio Activo</label>
+      <div class="control">
+        <input class="input" id="edit-principio" type="text" placeholder="Principio activo" />
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label" for="edit-forma">Forma Farmacéutica</label>
+          <div class="control">
+            <input class="input" id="edit-forma" type="text" placeholder="Ej: Tableta" />
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label class="label" for="edit-concentracion">Concentración</label>
+          <div class="control">
+            <input class="input" id="edit-concentracion" type="text" placeholder="Ej: 500 mg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label" for="edit-unidad">Unidad de Medida</label>
+          <div class="control">
+            <input class="input" id="edit-unidad" type="text" placeholder="Unidad de medida" />
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label class="label" for="edit-stock-min">Stock Mínimo</label>
+          <div class="control">
+            <input class="input" id="edit-stock-min" type="number" min="0" placeholder="0" required />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped mt-5">
+      <div class="control">
+        <button type="submit" class="button is-primary">Guardar</button>
+      </div>
+      <div class="control">
+        <button type="button" id="btn-cancelar-edit" class="button is-light">Cancelar</button>
+      </div>
+    </div>
+  </form>
+</div>

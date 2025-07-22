@@ -1,0 +1,44 @@
+<section class="section">
+  <div class="container" id="editar-lote-container">
+    <h1 class="title is-4">Editar Lote</h1>
+
+    <form id="form-editar-lote" class="box">
+      <div class="field">
+        <label class="label">Número de lote</label>
+        <div class="control">
+          <input class="input" type="text" id="edit-numero-lote" placeholder="Ej. A123" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Fecha de vencimiento</label>
+        <div class="control">
+          <input class="input" type="date" id="edit-fecha-venc" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Cantidad actual</label>
+        <div class="control">
+          <input class="input" type="number" min="0" id="edit-cantidad" placeholder="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Precio unitario (compra)</label>
+        <div class="control">
+          <input class="input" type="number" min="0" step="0.01" id="edit-precio" placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit">Guardar</button>
+        </div>
+        <div class="control">
+          <button class="button is-light" type="button" id="btn-cancelar-edit-lote">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+<div class="box">
+  <h2 class="title is-4">Registrar Nuevo Medicamento</h2>
+  <form id="form-nuevo-medicamento">
+    <div class="field">
+      <label class="label" for="codigo-medicamento">Código del Medicamento</label>
+      <div class="control">
+        <input class="input" type="text" id="codigo-medicamento" placeholder="Ej: A001" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="descripcion">Descripción</label>
+      <div class="control">
+        <input class="input" type="text" id="descripcion" placeholder="Nombre comercial" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="principio-activo">Principio Activo</label>
+      <div class="control">
+        <input class="input" type="text" id="principio-activo" placeholder="Ej: Paracetamol" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="forma-farmaceutica">Forma Farmacéutica</label>
+      <div class="control">
+        <input class="input" type="text" id="forma-farmaceutica" placeholder="Ej: Tableta" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="concentracion">Concentración</label>
+      <div class="control">
+        <input class="input" type="text" id="concentracion" placeholder="Ej: 500 mg" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="unidad-medida">Unidad de Medida</label>
+      <div class="control">
+        <input class="input" type="text" id="unidad-medida" placeholder="Ej: mg" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="stock-minimo">Stock Mínimo</label>
+      <div class="control">
+        <input class="input" type="number" id="stock-minimo" min="0" value="0" required>
+      </div>
+    </div>
+
+    <div class="field is-grouped mt-4">
+      <div class="control">
+        <button type="submit" class="button is-primary">Guardar</button>
+      </div>
+      <div class="control">
+        <button type="button" id="btn-cancelar-nuevo-med" class="button is-light">Cancelar</button>
+      </div>
+    </div>
+  </form>
+</div>

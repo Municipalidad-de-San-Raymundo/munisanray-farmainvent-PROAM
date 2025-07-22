@@ -1,0 +1,125 @@
+<div class="box">
+    <h2 class="title is-4">Registro de Salidas</h2>
+    <p class="subtitle is-6">Registre las salidas de medicamentos del inventario.</p>
+</div>
+
+<form class="mt-4">
+    <div class="field">
+        <label class="label" for="medicamento_salida">Medicamento</label>
+        <div class="control">
+            <select id="medicamento_salida" class="input"></select>
+        </div>
+    </div>
+
+    <div class="columns is-multiline">
+        <!-- DPI solicitante -->
+        <div class="column is-12-mobile is-6-tablet">
+            <div class="field">
+                <label class="label" for="dpi_solicitante">DPI del solicitante</label>
+                <div class="control">
+                    <input class="input" type="text" id="dpi_solicitante" placeholder="Ej. 1234567890101" maxlength="13">
+                </div>
+            </div>
+        </div>
+        <div class="column is-12-mobile is-6-tablet">
+            <div class="field">
+                <label class="label" for="cantidad_salida">Cantidad</label>
+                <div class="control">
+                    <input class="input" type="number" id="cantidad_salida" min="1" placeholder="Cantidad a retirar" required>
+                </div>
+            </div>
+        </div>
+        <div class="column is-12-mobile is-6-tablet">
+            <div class="field">
+                <label class="label" for="lote_salida">Lote</label>
+                <div class="control">
+                    <select id="lote_salida" class="input"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Precio de venta -->
+        <div class="column is-12-mobile is-6-tablet">
+            <div class="field">
+                <label class="label" for="precio_venta_salida">Precio de venta (Q)</label>
+                <div class="control">
+                    <input class="input" type="text" id="precio_venta_salida" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="field">
+        <label class="label" for="observaciones_salida">Observaciones (Opcional)</label>
+        <div class="control">
+            <textarea class="textarea" id="observaciones_salida" name="observaciones_salida" placeholder="Alguna nota adicional..."></textarea>
+        </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="field is-grouped is-grouped-centered mt-5">
+        <div class="control">
+            <button id="btn_agregar_salida" type="button" class="button is-info is-fullwidth-mobile">
+                <span class="icon"><i class="fas fa-plus"></i></span>
+                <span>Agregar a lista</span>
+            </button>
+        </div>
+        <div class="control">
+            <button type="reset" class="button is-light is-fullwidth-mobile">
+                <span class="icon"><i class="fas fa-eraser"></i></span>
+                <span>Limpiar</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- Tabla de detalle de salidas -->
+<div class="box mt-5">
+    <h3 class="title is-5">Detalle de Salidas</h3>
+    <div class="table-container">
+        <table class="table is-striped is-fullwidth" id="tabla_detalle_salidas">
+            <thead>
+                <tr>
+                    <th>Medicamento</th>
+                    <th>Lote</th>
+                    <th>Cantidad</th>
+                    <th>Total (Q)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- filas generadas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Sección de Totales -->
+    <div class="box has-background-light">
+        <div class="columns">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label">Total Exacto:</label>
+                    <div class="control">
+                        <span class="tag is-info is-large" id="total_exacto">Q0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label">Total Redondeado:</label>
+                    <div class="control">
+                        <span class="tag is-primary is-large" id="total_redondeado">Q0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="field has-text-centered">
+        <button id="btn_registrar_salidas" class="button is-danger" disabled>
+            <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+            <span>Registrar Salidas</span>
+        </button>
+    </div>
+</div>
+</form>

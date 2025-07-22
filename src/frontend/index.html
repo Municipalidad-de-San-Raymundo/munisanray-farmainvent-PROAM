@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Importante para Bulma -->
+    <title>Sistema de Inventario de Medicamentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/bulma/css/bulma.css"> <!-- Enlace a Bulma CSS -->
+    <link rel="stylesheet" href="css/custom-styles.css">
+    <link rel="stylesheet" href="css/debug.css"> <!-- Archivo CSS para depuración -->
+    <!-- Choices.js CSS for searchable selects -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+</head>
+<body>
+    <!-- Botón de hamburguesa para mostrar/ocultar el menú en móviles -->
+    <a role="button" class="sidebar-burger is-hidden-desktop" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+
+    <!-- Overlay para el contenido principal cuando el menú está abierto -->
+    <div class="content-overlay"></div>
+
+    <div class="columns is-gapless">
+        <!-- Contenedor del Menú Lateral -->
+        <div class="column is-2-desktop is-3-tablet" id="sidebar-container">
+            <!-- menu.html se insertará aquí por renderer.js -->
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="column main-content-area">
+            <section class="section pt-4 pb-4"> <!-- Reducir padding de la sección del header -->
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title is-3" id="pageTitle">Dashboard</h1>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <p id="currentDate"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section pt-0"> <!-- Reducir padding superior de la sección de contenido -->
+                <div id="mainContent">
+                    <!-- Contenido dinámico se cargará aquí -->
+                    <div class="box">
+                        <h2 class="title is-4">Bienvenido al Sistema de Inventario de Medicamentos</h2>
+                        <p>Seleccione una opción del menú lateral para comenzar.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Contenedor de notificaciones (Bulma) -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Choices.js -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script defer src="renderer.js"></script>
+</body>
+</html>

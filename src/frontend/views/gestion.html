@@ -1,0 +1,47 @@
+<div class="box">
+    <h2 class="title is-4">Gestión de Medicamentos</h2>
+    <p class="subtitle is-6">Administre los medicamentos en inventario. Aquí podrá agregar, editar, eliminar y buscar medicamentos.</p>
+</div>
+
+<div class="field has-addons mt-4">
+  <div class="control is-expanded">
+    <input id="med-search-input" class="input" type="text" placeholder="Buscar medicamento...">
+  </div>
+  <div class="control">
+    <a id="btn-med-search" class="button is-info">
+      Buscar
+    </a>
+  </div>
+</div>
+
+<div class="table-container scroll-table-wrapper mt-4">
+    <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>P. Activo</th>
+            <th>F. Farmacéutica</th>
+            <th>Concentración</th>
+            <th>U. Medida</th>
+            <th>Stock Actual</th>
+            <th>Stock Mín.</th>
+            <th class="has-text-centered">Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla-medicamentos-body">
+        <!-- Las filas de medicamentos se cargarán aquí dinámicamente -->
+    </tbody>
+    </table>
+    <!-- Paginación -->
+    <nav id="medicamentos-pagination" class="pagination is-centered" role="navigation" aria-label="pagination" style="display:none">
+        <a class="pagination-previous">Anterior</a>
+        <a class="pagination-next">Siguiente</a>
+        <ul class="pagination-list"></ul>
+    </nav>
+</div>
+
+<button class="button is-primary mt-4 is-fullwidth-mobile" id="btn-ir-a-registrar-medicamento">
+    <span class="icon"><i class="fas fa-plus"></i></span>
+    <span>Agregar Nuevo Medicamento</span>
+</button>

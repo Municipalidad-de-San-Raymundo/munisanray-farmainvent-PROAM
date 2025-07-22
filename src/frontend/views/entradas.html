@@ -1,0 +1,86 @@
+<div class="box">
+    <h2 class="title is-4">Registrar Entrada de Stock</h2>
+    <p class="subtitle is-6">Seleccione un medicamento y complete los detalles del lote que ingresa.</p>
+
+    <form id="form-registrar-entrada">
+        <!-- Fila para seleccionar medicamento -->
+        <div class="field">
+            <label class="label" for="medicamento-buscar">Medicamento</label>
+            <div class="control is-expanded">
+                <input class="input" id="medicamento-buscar" type="text" list="medicamentos-dl" placeholder="Busque o seleccione un medicamento..." required>
+                <datalist id="medicamentos-dl"></datalist>
+            </div>
+            <p class="help">Escriba para buscar; al enfocar aparecerán todos los medicamentos.</p>
+        </div>
+
+        <!-- Fila para Lote y Cantidad -->
+        <div class="columns">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="numero-lote">Número de Lote</label>
+                    <div class="control">
+                        <input class="input" id="numero-lote" type="text" placeholder="Ej: LOTE-00123" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="cantidad-entrada">Cantidad Recibida</label>
+                    <div class="control">
+                        <input class="input" id="cantidad-entrada" type="number" min="1" placeholder="Ej: 100" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila para Precio unitario y Importe total -->
+        <div class="columns">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="precio-unitario">Precio Unitario</label>
+                    <div class="control">
+                        <input class="input" id="precio-unitario" type="number" min="0" step="0.01" placeholder="Ej: 1.50" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="importe-total">Importe Total</label>
+                    <div class="control">
+                        <input class="input" id="importe-total" type="number" step="0.01" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila para Fecha de Vencimiento y Proveedor (opcional) -->
+        <div class="columns">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="fecha-vencimiento">Fecha de Vencimiento</label>
+                    <div class="control">
+                        <input class="input" id="fecha-vencimiento" type="date" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label" for="proveedor">Proveedor (Opcional)</label>
+                    <div class="control">
+                        <input class="input" id="proveedor" type="text" placeholder="Ej: Farmacias S.A.">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="field is-grouped mt-5">
+            <div class="control">
+                <button type="submit" class="button is-primary">Registrar Entrada</button>
+            </div>
+            <div class="control">
+                <button type="reset" class="button is-light">Limpiar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,134 @@
+<div class="box">
+    <h2 class="title is-4">Reportes</h2>
+    <p class="subtitle is-6">Genere reportes detallados del inventario.</p>
+</div>
+
+<div class="columns mt-4">
+    <div class="column is-two-fifths">
+        <div class="box">
+            <h3 class="title is-5 mb-4">Reporte de Movimientos</h3>
+            <div class="field">
+                <label class="label" for="tipo_reporte">Tipo de Reporte</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="tipo_reporte">
+                            <option value="Entradas">Resumen de Entradas</option>
+                            <option value="Salidas">Resumen de Salidas</option>
+                            <option value="Ambos">Resumen de Entradas y Salidas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-6-tablet is-12-mobile">
+                    <div class="field">
+                        <label class="label" for="fecha_inicio_reporte">Desde</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="date" id="fecha_inicio_reporte">
+                            <span class="icon is-small is-left"><i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6-tablet is-12-mobile">
+                    <div class="field">
+                        <label class="label" for="fecha_fin_reporte">Hasta</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="date" id="fecha_fin_reporte">
+                            <span class="icon is-small is-left"><i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field mt-4">
+                <button id="btnGenerarRango" class="button is-link is-fullwidth">
+                    <span class="icon"><i class="fas fa-file-excel"></i></span>
+                    <span>Generar Excel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="column is-three-fifths">
+        <div id="area_reporte" class="box" style="min-height: 400px;">
+            <!-- El reporte generado se mostrará aquí -->
+            <div class="has-text-centered p-5">
+                <p class="is-size-5 has-text-grey-light">
+                    <span class="icon is-large"><i class="fas fa-chart-bar fa-3x"></i></span>
+                </p>
+                <p class="is-size-5 has-text-grey-light mt-3">Seleccione las opciones y genere un reporte para visualizarlo aquí.</p>
+            </div>
+        </div>
+         <div class="field is-grouped is-grouped-right mt-3">
+                <div class="control">
+                    <button class="button is-link is-hidden" id="btnImprimirReporte">
+                        <span class="icon"><i class="fas fa-print"></i></span>
+                        <span>Imprimir</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <button class="button is-success is-hidden" id="btnDescargarReporte">
+                         <span class="icon"><i class="fas fa-download"></i></span>
+                        <span>Descargar</span>
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="columns mt-4">
+    <div class="column is-two-fifths">
+        <div class="box">
+            <h3 class="title is-5 mb-4">Reporte de Recibos</h3>
+            <div class="field">
+                <label class="label" for="tipo_recibo">Estado de Recibos</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="tipo_recibo">
+                            <option value="activos">Recibos Activos</option>
+                            <option value="anulados">Recibos Anulados</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-6-tablet is-12-mobile">
+                    <div class="field">
+                        <label class="label" for="fecha_inicio_recibo">Desde</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="date" id="fecha_inicio_recibo">
+                            <span class="icon is-small is-left"><i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6-tablet is-12-mobile">
+                    <div class="field">
+                        <label class="label" for="fecha_fin_recibo">Hasta</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="date" id="fecha_fin_recibo">
+                            <span class="icon is-small is-left"><i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field mt-4">
+                <button id="btnGenerarReciboExcel" class="button is-link is-fullwidth">
+                    <span class="icon"><i class="fas fa-file-excel"></i></span>
+                    <span>Generar Excel de Recibos</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="column is-three-fifths">
+        <div class="box" style="min-height: 200px;">
+            <div class="has-text-centered p-5">
+                <p class="is-size-5 has-text-grey-light">
+                    <span class="icon is-large"><i class="fas fa-receipt fa-3x"></i></span>
+                </p>
+                <p class="is-size-5 has-text-grey-light mt-3">El reporte de recibos se generará en formato Excel y se abrirá automáticamente.</p>
+            </div>
+        </div>
+    </div>
+</div>

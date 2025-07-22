@@ -1,0 +1,40 @@
+<div class="box">
+  <h2 class="title is-4">Historial de Movimientos</h2>
+  <p class="subtitle is-6">Vea el historial completo de movimientos del inventario (entradas y salidas).</p>
+  <div class="field is-grouped is-grouped-multiline">
+    <div class="control">
+      <div class="select">
+        <select id="filtro-tipo">
+          <option value="">Todos</option>
+          <option value="Entrada">Entradas</option>
+          <option value="Salida">Salidas</option>
+        </select>
+      </div>
+    </div>
+    <div class="control">
+      <button id="btn-filtrar" class="button is-info is-small">Filtrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-table-wrapper">
+  <table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>Fecha/Hora</th>
+        <th>Tipo</th>
+        <th>Medicamento</th>
+        <th>Lote</th>
+        <th>Cantidad</th>
+        <th>Usuario</th>
+        <th>DPI Solicitante</th>
+        <th>Motivo</th>
+      </tr>
+    </thead>
+    <tbody id="historial-body">
+      <tr><td colspan="8" class="has-text-centered">Cargando...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination" id="historial-pagination"></nav>

@@ -22,7 +22,12 @@ function registerHandlers(ipcMain) {
       // Función de redondeo personalizado
       const redondearQuetzales = (valor) => {
         const entero = Math.floor(valor);
-        const decimal = valor - entero;
+        const decimal = +(valor - entero).toFixed(2);
+
+        // Si el valor ya es exacto, no aplicar redondeo
+        if (decimal === 0) {
+          return valor;
+        }
         
         if (decimal <= 0.25) {
           return entero + 0.25;

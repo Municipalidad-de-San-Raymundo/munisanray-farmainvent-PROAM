@@ -9,6 +9,8 @@ const { registerHandlers: registerSalidaHandlers } = require('./src/backend/ipcH
 const { registerHandlers: registerHistorialHandlers } = require('./src/backend/ipcHandlers/historialHandlers.js');
 const { registerHandlers: registerReporteHandlers } = require('./src/backend/ipcHandlers/reporteHandlers.js');
 const { registerHandlers: registerReciboHandlers } = require('./src/backend/ipcHandlers/reciboHandlers.js');
+const { registerHandlers: registerStockHandlers } = require('./src/backend/ipcHandlers/stockHandlers.js');
+const { registerHandlers: registerImportacionHandlers } = require('./src/backend/ipcHandlers/importacionHandlers.js');
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -48,6 +50,8 @@ app.whenReady().then(() => {
 
   // Registrar los manejadores IPC para Dashboard
   registerDashboardHandlers(ipcMain, db);
+  // Registrar manejadores para vista Sin Stock
+  registerStockHandlers(ipcMain, db);
 
   // Registrar los manejadores IPC para Salida
   registerSalidaHandlers(ipcMain, db);
@@ -60,6 +64,9 @@ app.whenReady().then(() => {
 
   // Registrar manejador de Recibo
   registerReciboHandlers(ipcMain);
+
+  // Registrar los manejadores IPC para Importación
+  registerImportacionHandlers(ipcMain, db);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -75,3 +82,4 @@ app.on('window-all-closed', () => {
 })
 
 // IPC handlers related to NeDB were here, but have been removed.
+

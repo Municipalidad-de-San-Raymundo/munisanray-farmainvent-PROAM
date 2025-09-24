@@ -1,0 +1,25 @@
+<div class="box">
+    <h2 class="title is-4">Medicamentos sin stock o por debajo del mínimo</h2>
+    <p class="subtitle is-6">Listado actualizado de medicamentos que requieren reposición.</p>
+
+    <div class="mb-3">
+        <button class="button is-link" id="btn-exportar-sin-stock"><span class="icon"><i class="fas fa-file-excel"></i></span><span>Exportar a Excel</span></button>
+    </div>
+    <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable is-narrow">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Stock Total</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-sin-stock-body">
+                <tr>
+                    <td colspan="4" class="has-text-centered">Cargando datos...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

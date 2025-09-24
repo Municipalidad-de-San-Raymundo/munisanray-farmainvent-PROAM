@@ -1,32 +1,25 @@
-# Licencia de uso - munisanray-medicamentos
+# Licencia de Uso
+FarmaInvent - Municipalidad de San Raymundo
 
-Copyright (c) 2025 fixmybugs
+Copyright (c) 2025, Municipalidad de San Raymundo
 
-Este software, denominado **munisanray-medicamentos**, se proporciona de forma gratuita **exclusivamente para fines personales, académicos o de investigación**.
+## 1. Propiedad y Derechos de Autor
 
-## Restricciones de uso comercial
+El código fuente de este repositorio es propiedad exclusiva de la Municipalidad de San Raymundo, Guatemala. Todos los derechos de autor y de propiedad intelectual sobre el código y sus derivados pertenecen a la municipalidad.
 
-Queda **estrictamente prohibido**:
+## 2. Términos de Uso y Distribución
 
-- El uso de este software, total o parcialmente, con fines comerciales.
-- La distribución, venta, sublicencia o cualquier forma de explotación económica del software sin una autorización previa y expresa del autor.
+El uso, modificación y distribución de este código o cualquier parte de él está estrictamente prohibido sin la autorización expresa y por escrito de la Municipalidad de San Raymundo.
 
-Para obtener una licencia comercial, debe solicitar autorización escribiendo a través del perfil de GitHub del autor:  
-👉 [https://github.com/fixmybugs](https://github.com/fixmybugs)
+Para solicitar permiso de uso, se debe gestionar con la administración de la municipalidad, preferiblemente a través de la Dirección de Informática. La persona o entidad interesada puede contactar por los siguientes medios:
 
-## Permisos
+- Correo electrónico: Munisanraymundo2024.2028@gmail.com
+- Dirección física: 4a. calle 2-00 zona 1, San Raymundo, Guatemala, Guatemala.
 
-Se permite:
+## 3. No Garantía
 
-- Usar el software para fines educativos y personales.
-- Modificar el código para uso no comercial.
-- Compartir copias modificadas o sin modificar, siempre que se respeten estas condiciones y se mantenga este aviso de licencia.
+Este software se proporciona "tal cual", sin garantía de ningún tipo, ya sea expresa o implícita. La Municipalidad de San Raymundo no se hace responsable de los daños o pérdidas que puedan surgir del uso de este software. El usuario asume todos los riesgos asociados con su uso.
 
-## Sin garantías
+## 4. Modificaciones y Derivados
 
-Este software se proporciona "tal cual", sin garantías de ningún tipo, expresas o implícitas.  
-El autor **no será responsable** por ningún daño, pérdida de datos o perjuicio derivado del uso de este software.
-
----
-
-Munisanray-medicamentos — licencia de uso no comercial.
+Cualquier modificación o trabajo derivado del código fuente original también deberá obtener el permiso de la Municipalidad de San Raymundo. Los derechos de propiedad intelectual sobre las modificaciones permanecerán con la municipalidad, a menos que se acuerde lo contrario por escrito.

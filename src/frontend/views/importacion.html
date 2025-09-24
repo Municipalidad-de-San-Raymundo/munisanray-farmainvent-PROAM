@@ -1,0 +1,82 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-4">Importación desde Excel</h1>
+    <p class="subtitle is-6">Seleccione un archivo Excel con el mismo formato que espera <code>scripts/migracion.js</code> (Columnas: Código, Descripción, Cantidad, Precio unitario, Importe, Número de lote, Fecha de vencimiento).</p>
+
+    <div class="box">
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <div class="field">
+            <label class="label">Archivo Excel (.xlsx)</label>
+            <div class="control">
+              <input id="excel-file" class="input" type="file" accept=".xlsx" />
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label class="label">Estrategia de Duplicados</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="duplicate-strategy">
+                  <option value="omitir">Omitir duplicados</option>
+                  <option value="permitir">Permitir duplicados</option>
+                  <option value="sobrescribir">Sobrescribir duplicados</option>
+                </select>
+              </div>
+            </div>
+            <p class="help">Clave de duplicado: Código + Número de Lote + Fecha Vencimiento.</p>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="buttons mt-5">
+            <button id="btn-preview" class="button is-link">
+              <span class="icon"><i class="fas fa-eye"></i></span>
+              <span>Previsualizar</span>
+            </button>
+            <button id="btn-import" class="button is-primary" disabled>
+              <span class="icon"><i class="fas fa-file-import"></i></span>
+              <span>Importar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Progreso</label>
+        <progress id="import-progress" class="progress is-primary" value="0" max="100">0%</progress>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-5">Previsualización</h2>
+      <div id="preview-summary" class="content"></div>
+      <div class="table-container" style="max-height: 400px; overflow:auto;">
+        <table class="table is-fullwidth is-hoverable is-striped is-narrow">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Código</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Precio Unit.</th>
+              <th>Importe</th>
+              <th>Número Lote</th>
+              <th>Fecha Venc.</th>
+              <th>Estado</th>
+              <th>Errores</th>
+            </tr>
+          </thead>
+          <tbody id="preview-body">
+            <tr><td colspan="10" class="has-text-centered">Sin datos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-5">Resultados</h2>
+      <pre id="import-log" style="white-space: pre-wrap;"></pre>
+    </div>
+  </div>
+</section>

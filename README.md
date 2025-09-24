@@ -11,12 +11,14 @@ Aplicación de escritorio desarrollada con Electron.js para la gestión de inven
 - Generación de reportes en Excel
 - Interfaz intuitiva y fácil de usar
 - Base de datos SQLite local para almacenamiento seguro de datos
+ - Gestión de recibos y generación de reportes de recibos
+ - Importación de datos desde Excel a la BD existente con previsualización y estrategias de duplicados
 
 ## 🚀 Requisitos del Sistema
 
-- Node.js 14.x o superior
-- npm 6.x o superior
-- Windows 7 o superior (compatible con otros sistemas operativos con configuraciones adicionales)
+- Node.js 18.x o superior (LTS recomendado)
+- npm 8.x o superior
+- Windows 10 o superior (compatible con otros sistemas operativos con configuraciones adicionales)
 
 ## 🛠 Instalación
 
@@ -81,6 +83,10 @@ graph TD
 ### Estructura de Directorios
 
 > 📖 Consulta la referencia completa de archivos en [`docs/estructura_archivos.md`](docs/estructura_archivos.md)
+>
+> 📥 Guía detallada de la nueva funcionalidad: [`docs/importacion_excel.md`](docs/importacion_excel.md)
+>
+> 🧩 Cómo agregar nuevas vistas y lógica: [`docs/agregar_vista.md`](docs/agregar_vista.md)
 
 
 ```
@@ -108,7 +114,7 @@ sistema-inventario-medicamentos/
   - HTML5, CSS3, JavaScript (ES6+)
   - Bulma CSS Framework
   - Font Awesome para iconos
-  - Inter (fuente personalizada)
+  - Inter (fuente personalizada, opcional)
 
 - **Backend:**
   - Node.js
@@ -142,6 +148,8 @@ Los archivos compilados se guardarán en la carpeta `dist/`.
 5. **Historial:** Consulte el historial de movimientos
 6. **Reportes:** Genere reportes en formato Excel
 7. **Vencimientos:** Visualice medicamentos próximos a vencer
+8. **Recibos:** Genere y gestione recibos
+9. **Importación:** Cargue un archivo Excel, previsualice y ejecute la importación sobre la base de datos existente. Ver [`docs/importacion_excel.md`](docs/importacion_excel.md)
 
 ## ➕ Añadir una Nueva Vista
 
@@ -153,15 +161,16 @@ Sigue estos pasos para agregar una nueva funcionalidad completa (vista + lógica
    - Agrega _ids_ y clases a los elementos que necesites manipular desde JavaScript.
 
 2. **Actualizar el Menú** (`src/frontend/menu.html`)
-   - Añade un enlace en la lista `<a data-view="mi_feature.html">Mi Feature</a>`.
-   - El `renderer.js` cargará la vista automáticamente al hacer clic.
+   - Añade un enlace en la lista con `data-page`, por ejemplo: `<a class="nav-item" data-page="mi_feature">Mi Feature</a>`.
+   - La vista debe estar en `src/frontend/views/mi_feature.html`.
+   - `renderer.js` cargará la vista automáticamente al hacer clic.
 
 3. **Añadir Lógica en el Renderer**
    - Crea (o amplía) un archivo JS dedicado en `src/frontend/js/` (si prefieres mantener separados) o agrega funciones en `renderer.js` dentro del bloque de rutas:
      ```js
-     case 'mi_feature.html':
+     else if (page === 'mi_feature') {
        cargarMiFeature();
-       break;
+     }
      ```
    - Implementa `cargarMiFeature()` para inicializar eventos y llamar a IPC.
 
@@ -211,23 +220,23 @@ La paleta de colores personalizada incluye:
 - Color de éxito: `#035AA6` (azul oscuro)
 
 ### Fuente
-La aplicación utiliza la fuente 'Inter' para una mejor legibilidad.
+La aplicación puede utilizar la fuente 'Inter' si se configura en los estilos del proyecto.
 
-## 🔒 Seguridad
+ ## 🔒 Seguridad
 
-- Content Security Policy (CSP) implementada
-- Validación de entrada en formularios
-- Manejo seguro de rutas de archivos
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia propietaria (revisar repositorio oficial).
-
-
-## 🤝 Contribución
+ - Buenas prácticas activas: `preload.js`, `contextIsolation: true`, `nodeIntegration: false`.
+ - Validación de entrada en formularios.
+ - Manejo seguro de rutas de archivos.
+ - Nota: La política CSP no se ha definido explícitamente en `index.html`. Si se requiere, debe añadirse una meta etiqueta CSP o cabeceras adecuadas.
+ 
+ ## 📄 Licencia
+ 
+ Este software es propiedad de la Municipalidad de San Raymundo. Su uso, modificación y distribución requieren autorización expresa y por escrito. Consulte los términos completos en [`LICENSE.md`](LICENSE.md).
+ 
+ ## 🤝 Contribución
 
 Las contribuciones son bienvenidas. Por favor, envíe un Pull Request con sus cambios propuestos.
 
 ## 📧 Contacto
 
-Para soporte o consultas, por favor contacte al equipo de desarrollo.
+Para soporte o consultas, por favor contacte al equipo de desarrollo de la Municipalidad de San Raymundo.

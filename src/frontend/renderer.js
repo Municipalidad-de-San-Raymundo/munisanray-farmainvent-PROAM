@@ -444,6 +444,12 @@ async function loadPageContent(page) {
                 initializeRegistrarSalidaForm();
             } else if (page === 'vencimientos') {
                 cargarYMostrarVencimientos();
+            } else if (page === 'sin_stock') {
+                cargarYMostrarSinStock();
+                document.getElementById('btn-exportar-sin-stock')?.addEventListener('click', async ()=>{
+                    const res = await window.electronAPI.invoke('stock:excel');
+                    showNotification(res.message, res.success ? 'is-success' : 'is-danger');
+                });
             } else if (page === 'nuevo_medicamento') {
                 initializeNuevoMedicamentoForm();
             } else if (page === 'editar_lote') {
@@ -490,6 +496,8 @@ async function loadPageContent(page) {
                 const hoy = new Date().toISOString().split('T')[0];
                 document.getElementById('fecha_inicio_recibo').value = hoy;
                 document.getElementById('fecha_fin_recibo').value = hoy;
+            } else if (page === 'importacion') {
+                initializeImportacionView();
             } else if (page === 'recibos') {
                 initializeRecibosView();
             }
@@ -711,6 +719,37 @@ async function cargarYMostrarVencimientos() {
     }
 }
 
+async function cargarYMostrarSinStock() {
+    const body = document.getElementById('tabla-sin-stock-body');
+    if (!body) return;
+    body.innerHTML = '<tr><td colspan="4" class="has-text-centered">Cargando datos...</td></tr>';
+    try {
+        const res = await window.electronAPI.invoke('stock:obtenerBajo');
+        if (res.success) {
+            const meds = res.data;
+            if (meds.length === 0) {
+                body.innerHTML = '<tr><td colspan="4" class="has-text-centered">Todos los medicamentos están por encima del stock mínimo.</td></tr>';
+            } else {
+                body.innerHTML = '';
+                meds.forEach(m => {
+                    const tr = document.createElement('tr');
+                    const cls = m.stock_total === 0 ? 'has-text-danger has-text-weight-bold' : 'has-text-warning';
+                    tr.innerHTML = `
+                        <td>${m.codigo_medicamento}</td>
+                        <td>${m.descripcion}</td>
+                        <td class="${cls}">${m.stock_total}</td>
+                        <td>${m.stock_minimo}</td>`;
+                    body.appendChild(tr);
+                });
+            }
+        } else {
+            body.innerHTML = `<tr><td colspan="4" class="has-text-centered">${res.message}</td></tr>`;
+        }
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="4" class="has-text-centered">Error al cargar datos.</td></tr>';
+    }
+}
+
 function initializeNuevoMedicamentoForm() {
     const form = document.getElementById('form-nuevo-medicamento');
     const btnCancel = document.getElementById('btn-cancelar-nuevo-med');
@@ -787,8 +826,13 @@ function initializeRegistrarSalidaForm() {
     // --- Función de redondeo personalizado -------------------
     const redondearQuetzales = (valor) => {
         const entero = Math.floor(valor);
-        const decimal = valor - entero;
-        
+        const decimal = +(valor - entero).toFixed(2); // Mantener dos decimales para precisión
+
+        // Si el valor ya es exacto (sin parte decimal), no aplicar redondeo
+        if (decimal === 0) {
+            return valor;
+        }
+
         if (decimal <= 0.25) {
             return entero + 0.25;
         } else if (decimal <= 0.50) {
@@ -1301,3 +1345,150 @@ async function cargarHistorial(page=1){
 document.addEventListener('change', (e)=>{
     if(e.target && e.target.id==='filtro-tipo') cargarHistorial();
 });
+
+// ============================================================================
+// VISTA DE IMPORTACIÓN
+// ============================================================================
+function initializeImportacionView(){
+    const fileInput = document.getElementById('excel-file');
+    const strategySelect = document.getElementById('duplicate-strategy');
+    const btnPreview = document.getElementById('btn-preview');
+    const btnImport = document.getElementById('btn-import');
+    const progress = document.getElementById('import-progress');
+    const previewBody = document.getElementById('preview-body');
+    const previewSummary = document.getElementById('preview-summary');
+    const logEl = document.getElementById('import-log');
+
+    if(!fileInput) return; // vista aún no cargada
+
+    let currentFile = null; // { name, dataBase64 }
+    let unsubscribeProgress = null;
+
+    const readFileAsBase64 = (file) => new Promise((resolve, reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => {
+            const arr = new Uint8Array(reader.result);
+            let binary = '';
+            for (let i = 0; i < arr.length; i++) binary += String.fromCharCode(arr[i]);
+            const b64 = btoa(binary);
+            resolve(b64);
+        };
+        reader.onerror = () => reject(reader.error);
+        reader.readAsArrayBuffer(file);
+    });
+
+    const renderPreview = (rows)=>{
+        if(!rows || rows.length===0){
+            previewBody.innerHTML = '<tr><td colspan="10" class="has-text-centered">Sin datos</td></tr>';
+            return;
+        }
+        previewBody.innerHTML = rows.map(r=>{
+            const statusTagClass = r.status==='nuevo' ? 'is-success'
+                : r.status==='existente' ? 'is-info'
+                : r.status==='duplicado' ? 'is-warning'
+                : 'is-danger';
+            const err = r.errors && r.errors.length ? r.errors.join(', ') : '';
+            const precio = (r.precioUnit===null || isNaN(r.precioUnit)) ? '' : r.precioUnit;
+            const importe = (r.importe===null || isNaN(r.importe)) ? '' : r.importe;
+            return `<tr>
+                <td>${r.rowIndex}</td>
+                <td>${r.codigo}</td>
+                <td>${r.descripcion}</td>
+                <td>${r.cantidad}</td>
+                <td>${precio}</td>
+                <td>${importe}</td>
+                <td>${r.lote}</td>
+                <td>${r.fechaVenc||''}</td>
+                <td><span class="tag ${statusTagClass}">${r.status}</span></td>
+                <td class="has-text-danger">${err}</td>
+            </tr>`;
+        }).join('');
+    };
+
+    const renderSummary = (summary)=>{
+        if(!summary){ previewSummary.innerHTML=''; return; }
+        const { totalRows, validRows, invalidRows, duplicates, newMedicamentos, existingMedicamentos } = summary;
+        previewSummary.innerHTML = `
+            <ul>
+              <li><strong>Total filas:</strong> ${totalRows}</li>
+              <li><strong>Válidas:</strong> ${validRows}</li>
+              <li><strong>Inválidas:</strong> ${invalidRows}</li>
+              <li><strong>Duplicados detectados:</strong> ${duplicates}</li>
+              <li><strong>Medicamentos nuevos:</strong> ${newMedicamentos}</li>
+              <li><strong>Medicamentos existentes:</strong> ${existingMedicamentos}</li>
+            </ul>`;
+    };
+
+    fileInput.addEventListener('change', ()=>{
+        btnImport.setAttribute('disabled','disabled');
+        previewBody.innerHTML = '<tr><td colspan="10" class="has-text-centered">Sin datos</td></tr>';
+        previewSummary.innerHTML = '';
+        logEl.textContent = '';
+        progress.value = 0; progress.textContent = '0%';
+        currentFile = null;
+    });
+
+    btnPreview.addEventListener('click', async ()=>{
+        const f = fileInput.files && fileInput.files[0];
+        if(!f){ showNotification('Seleccione un archivo .xlsx','is-warning'); return; }
+        try{
+            btnPreview.classList.add('is-loading');
+            const b64 = await readFileAsBase64(f);
+            currentFile = { name: f.name, dataBase64: b64 };
+            const duplicateStrategy = strategySelect.value;
+            const res = await window.electronAPI.invoke('importacion:previsualizar', { file: currentFile, options: { duplicateStrategy } });
+            if(!res.success) throw new Error(res.message || 'Error en previsualización');
+            renderSummary(res.summary);
+            renderPreview(res.rows);
+            btnImport.removeAttribute('disabled');
+            showNotification('Previsualización completa','is-success');
+        }catch(err){
+            showNotification(err.message||'Error al previsualizar','is-danger');
+        }finally{
+            btnPreview.classList.remove('is-loading');
+        }
+    });
+
+    btnImport.addEventListener('click', async ()=>{
+        if(!currentFile){ showNotification('Realice la previsualización primero','is-warning'); return; }
+        btnImport.classList.add('is-loading');
+        btnPreview.setAttribute('disabled','disabled');
+        fileInput.setAttribute('disabled','disabled');
+        strategySelect.setAttribute('disabled','disabled');
+        logEl.textContent = '';
+        progress.value = 0; progress.textContent = '0%';
+
+        // Suscribir a progreso
+        unsubscribeProgress = window.electronAPI.on('importacion:progress', (prog)=>{
+            if(!prog) return;
+            progress.value = prog.percent||0;
+            progress.textContent = `${prog.percent||0}%`;
+        });
+
+        try{
+            const duplicateStrategy = strategySelect.value;
+            const res = await window.electronAPI.invoke('importacion:importar', { file: currentFile, options: { duplicateStrategy, recordMovements: true } });
+            if(!res.success) throw new Error(res.message||'Error al importar');
+            const r = res.resumen || {};
+            const erroresTxt = (r.errors||[]).map(e=>`Fila ${e.rowIndex}: ${e.message}`).join('\n');
+            logEl.textContent = `
+Importación completada\n
+Insertados (lotes): ${r.insertedLotes||0}\n
+Actualizados (lotes): ${r.updatedLotes||0}\n
+Omitidos (duplicados): ${r.skippedDuplicates||0}\n
+Medicamentos nuevos: ${r.newMedicamentos||0}\n
+Medicamentos existentes: ${r.existingMedicamentos||0}\n
+Errores: ${r.errors ? r.errors.length : 0}\n${erroresTxt}`.trim();
+            progress.value = 100; progress.textContent = '100%';
+            showNotification('Importación exitosa','is-success');
+        }catch(err){
+            showNotification(err.message||'Error durante importación','is-danger');
+        }finally{
+            btnImport.classList.remove('is-loading');
+            btnPreview.removeAttribute('disabled');
+            fileInput.removeAttribute('disabled');
+            strategySelect.removeAttribute('disabled');
+            if(typeof unsubscribeProgress==='function'){ unsubscribeProgress(); unsubscribeProgress = null; }
+        }
+    });
+}

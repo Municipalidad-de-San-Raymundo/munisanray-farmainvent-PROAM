@@ -117,6 +117,7 @@ async function previsualizarExcel(db, buffer, { duplicateStrategy = 'omitir' } =
   let duplicates = 0;
   let newMedicamentos = 0;
   let existingMedicamentos = 0;
+  let totalImporte = 0; // suma de importes estimados para filas válidas
 
   for (let rowIdx = 2; rowIdx <= sheet.rowCount; rowIdx++) {
     const row = sheet.getRow(rowIdx);
@@ -161,13 +162,24 @@ async function previsualizarExcel(db, buffer, { duplicateStrategy = 'omitir' } =
       }
     }
 
+    // Calcular importe estimado tal como se usará en importación
+    const precio = norm.precioUnit === null ? null : norm.precioUnit;
+    const importeFinal = (norm.importe === null && precio !== null)
+      ? (norm.cantidad * precio)
+      : (norm.importe === null ? null : norm.importe);
+
+    // Acumular total sólo para filas válidas (no inválidas)
+    if (status !== 'invalido' && typeof importeFinal === 'number' && !isNaN(importeFinal)) {
+      totalImporte += importeFinal;
+    }
+
     rows.push({
       rowIndex: norm.rowIndex,
       codigo: norm.codigo,
       descripcion: norm.descripcion,
       cantidad: norm.cantidad,
       precioUnit: norm.precioUnit,
-      importe: norm.importe,
+      importe: importeFinal,
       lote: norm.lote,
       fechaVenc: norm.fechaVenc,
       status,
@@ -177,7 +189,7 @@ async function previsualizarExcel(db, buffer, { duplicateStrategy = 'omitir' } =
 
   return {
     success: true,
-    summary: { totalRows, validRows, invalidRows, duplicates, newMedicamentos, existingMedicamentos },
+    summary: { totalRows, validRows, invalidRows, duplicates, newMedicamentos, existingMedicamentos, totalImporte },
     rows,
   };
 }

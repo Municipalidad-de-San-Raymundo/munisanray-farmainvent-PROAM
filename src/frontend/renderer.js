@@ -1407,7 +1407,8 @@ function initializeImportacionView(){
 
     const renderSummary = (summary)=>{
         if(!summary){ previewSummary.innerHTML=''; return; }
-        const { totalRows, validRows, invalidRows, duplicates, newMedicamentos, existingMedicamentos } = summary;
+        const { totalRows, validRows, invalidRows, duplicates, newMedicamentos, existingMedicamentos, totalImporte } = summary;
+        const totalImporteTxt = typeof totalImporte==='number' && !isNaN(totalImporte) ? `Q${totalImporte.toFixed(2)}` : 'N/D';
         previewSummary.innerHTML = `
             <ul>
               <li><strong>Total filas:</strong> ${totalRows}</li>
@@ -1416,6 +1417,7 @@ function initializeImportacionView(){
               <li><strong>Duplicados detectados:</strong> ${duplicates}</li>
               <li><strong>Medicamentos nuevos:</strong> ${newMedicamentos}</li>
               <li><strong>Medicamentos existentes:</strong> ${existingMedicamentos}</li>
+              <li><strong>Total importe estimado:</strong> ${totalImporteTxt}</li>
             </ul>`;
     };
 

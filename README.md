@@ -141,7 +141,6 @@ Los archivos compilados se guardarán en la carpeta `dist/`.
 
 ## 📝 Uso
 
-1. **Panel Principal:** Vista general con estadísticas del inventario
 2. **Gestión de Medicamentos:** Administre los medicamentos en inventario
 3. **Entradas:** Registre nuevas entradas de medicamentos
 4. **Salidas:** Registre salidas de medicamentos
@@ -151,11 +150,17 @@ Los archivos compilados se guardarán en la carpeta `dist/`.
 8. **Recibos:** Genere y gestione recibos
 9. **Importación:** Cargue un archivo Excel, previsualice y ejecute la importación sobre la base de datos existente. Ver [`docs/importacion_excel.md`](docs/importacion_excel.md)
 
+## 📷 Capturas de pantalla
+
+### Panel Principal
+<img src="docs/screenshots/Dashboard_screenshot.png" alt="Panel Principal" width="800">
+
+### Historial de Movimientos
+<img src="docs/screenshots/Historial_screenshot.png" alt="Historial de Movimientos" width="800">
+
 ## ➕ Añadir una Nueva Vista
 
 Sigue estos pasos para agregar una nueva funcionalidad completa (vista + lógica):
-
-1. **Crear la Vista HTML**
    - Copia un archivo de `src/frontend/views/` como plantilla o crea uno nuevo, p. ej. `mi_feature.html`.
    - Estructura básica Bulma: `<div class="box"> … </div>`.
    - Agrega _ids_ y clases a los elementos que necesites manipular desde JavaScript.
